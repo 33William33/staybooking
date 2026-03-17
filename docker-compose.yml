@@ -10,7 +10,7 @@ services:
     volumes:
       - staybooking-pg-local:/var/lib/postgresql
     ports:
-      - "5433:5433"
+      - "5432:5432"
 
 
 volumes:
