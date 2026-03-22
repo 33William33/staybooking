@@ -82,4 +82,44 @@ public class ListingEntity {
     public List<String> getImageUrls() {
         return imageUrls;
     }
+
+    public Point getLocation() {
+        return location;
+    }
+
+
+    public UserEntity getHost() {
+        return host;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ListingEntity that = (ListingEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(hostId, that.hostId) && Objects.equals(name, that.name) && Objects.equals(address, that.address) && Objects.equals(description, that.description) && Objects.equals(guestNumber, that.guestNumber) && Objects.equals(imageUrls, that.imageUrls) && Objects.equals(location, that.location) && Objects.equals(host, that.host);
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, hostId, name, address, description, guestNumber, imageUrls, location, host);
+    }
+
+
+    @Override
+    public String toString() {
+        return "ListingEntity{" +
+                "id=" + id +
+                ", hostId=" + hostId +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", description='" + description + '\'' +
+                ", guestNumber=" + guestNumber +
+                ", imageUrls=" + imageUrls +
+                ", location=" + location +
+                ", host=" + host +
+                '}';
+    }
 }
