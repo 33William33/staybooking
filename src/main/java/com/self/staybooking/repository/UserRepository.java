@@ -1,4 +1,4 @@
-package com.self.staybooking.model;
+package com.self.staybooking.repository;
 
 import com.self.staybooking.model.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-package com.self.staybooking.model;
+package com.self.staybooking.repository;
 
 
 import com.self.staybooking.model.ListingEntity;
@@ -28,3 +28,4 @@ public interface ListingRepository extends JpaRepository<ListingEntity, Long> {
                AND b.listing_id IS NULL;
            """, nativeQuery = true)
     List<ListingEntity> searchListings(double lat, double lon, double distance, LocalDate checkIn, LocalDate checkOut, int guestNum);
+}
