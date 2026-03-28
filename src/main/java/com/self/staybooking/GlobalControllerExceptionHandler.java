@@ -3,18 +3,19 @@ package com.self.staybooking;
 import com.self.staybooking.booking.DeleteBookingNotAllowedException;
 import com.self.staybooking.booking.InvalidBookingException;
 import com.self.staybooking.booking.ListingBookingsNotAllowedException;
+import com.self.staybooking.listing.DeleteListingNotAllowedException;
+import com.self.staybooking.listing.InvalidListingSearchException;
 import com.self.staybooking.model.ErrorResponse;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
 @ControllerAdvice
 public class GlobalControllerExceptionHandler {
-
-
 
 
     @ExceptionHandler(EntityNotFoundException.class)
@@ -25,7 +26,6 @@ public class GlobalControllerExceptionHandler {
                 HttpStatus.NOT_FOUND);
     }
 
-
     @ExceptionHandler(ListingBookingsNotAllowedException.class)
     public final ResponseEntity<ErrorResponse> handleException(ListingBookingsNotAllowedException e) {
         return new ResponseEntity<>(new ErrorResponse(
@@ -33,7 +33,6 @@ public class GlobalControllerExceptionHandler {
                 "listing_bookings_not_allowed"),
                 HttpStatus.FORBIDDEN);
     }
-
 
     @ExceptionHandler(DeleteBookingNotAllowedException.class)
     public final ResponseEntity<ErrorResponse> handleException(DeleteBookingNotAllowedException e) {
@@ -43,12 +42,35 @@ public class GlobalControllerExceptionHandler {
                 HttpStatus.FORBIDDEN);
     }
 
-
     @ExceptionHandler(InvalidBookingException.class)
     public final ResponseEntity<ErrorResponse> handleException(InvalidBookingException e) {
         return new ResponseEntity<>(new ErrorResponse(
                 e.getMessage(),
                 "invalid_booking_request"),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DeleteListingNotAllowedException.class)
+    public final ResponseEntity<ErrorResponse> handleException(DeleteListingNotAllowedException e) {
+        return new ResponseEntity<>(new ErrorResponse(
+                e.getMessage(),
+                "delete_listing_not_allowed"),
+                HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(InvalidListingSearchException.class)
+    public final ResponseEntity<ErrorResponse> handleException(InvalidListingSearchException ex) {
+        return new ResponseEntity<>(new ErrorResponse(
+                ex.getMessage(),
+                "invalid_search_request"),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public final ResponseEntity<ErrorResponse> handleException(MissingServletRequestParameterException ex) {
+        return new ResponseEntity<>(new ErrorResponse(
+                "Required request parameter is missing",
+                "missing_request_parameter"),
                 HttpStatus.BAD_REQUEST);
     }
 }
